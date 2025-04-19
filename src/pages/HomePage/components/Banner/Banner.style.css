@@ -23,3 +23,20 @@
 .banner-text-area>*{
     z-index: 2;
 }
+@media (max-width: 768px) {
+    .banner-text-area {
+      width: 90%;         /* 너무 넓지 않게 조정 */
+      padding: 16px;
+    }
+  
+    .banner-text-area h1 {
+      font-size: 1.5rem;
+    }
+  
+    .banner-text-area p {
+      font-size: 1rem;
+      max-height: 8em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }

@@ -1,42 +1,45 @@
-.banner{
- height: 56vh;
- background-position: left; 
- background-repeat: no-repeat;
- background-size: cover;
+.banner {
+  height: 56vh;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.banner::before{
-    content: '';
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.856), transparent);
-    position: absolute;
-    left: 0;
-    height: 56vh;
-    width: 100%;
+.banner::before {
+  content: "";
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.856), transparent);
+  position: absolute;
+  left: 0;
+  height: 56vh;
+  width: 100%;
 }
-.banner-text-area{
-    width: 36%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
+.banner-text-area {
+  width: 36%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
 }
-.banner-text-area>*{
-    z-index: 2;
+.banner-text-area > * {
+  z-index: 2;
 }
 @media (max-width: 768px) {
-    .banner-text-area {
-      width: 90%;         /* 너무 넓지 않게 조정 */
-      padding: 16px;
-    }
-  
-    .banner-text-area h1 {
-      font-size: 1.5rem;
-    }
-  
-    .banner-text-area p {
-      font-size: 1rem;
-      max-height: 8em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .banner {
+    background-position: center;
   }
+  .banner-text-area {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .banner-text-area h1 {
+    font-size: 1.5rem;
+  }
+
+  .banner-text-area p {
+    font-size: 1rem;
+    max-height: 8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

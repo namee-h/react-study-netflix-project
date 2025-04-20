@@ -1,6 +1,6 @@
 import React from "react";
 import GenreBadge from "./Chip";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography, useMediaQuery } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AllAgeIcon from "./Icons/AllAgeIcon";
@@ -11,6 +11,10 @@ import "./movieCard.style.css";
 
 const MovieCard = ({ movie, rank, variant = "default" }) => {
   const genreMap = useGenreStore((state) => state.genreMap);
+  const isMobile = useMediaQuery("(max-width:465px)");
+
+  const genreNames = movie.genre_ids.map((id) => genreMap[id]).filter(Boolean);
+  const displayedGenres = isMobile ? genreNames.slice(0, 3) : genreNames;
   return (
     <div
       style={{
@@ -28,9 +32,22 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
         <Stack>
           <h2>{movie.title}</h2>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-            {movie.genre_ids.map((id) => (
-              <GenreBadge key={id} genre={genreMap[id]} />
+            {displayedGenres.map((genre) => (
+              <GenreBadge key={genre} genre={genre} />
             ))}
+            {isMobile && genreNames.length > 3 && (
+              <Chip
+                label={`+${genreNames.length - 3}`}
+                size="small"
+                variant="outlined"
+                sx={{
+                  color: "white",
+                  borderColor: "gray",
+                  fontSize: "0.7rem",
+                  height: "24px",
+                }}
+              />
+            )}
           </Box>
         </Stack>
         <Stack>

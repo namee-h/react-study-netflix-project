@@ -72,7 +72,7 @@
 @media (max-width: 375px) {
   .movie-card {
     width: 155px;
-    height: 260px;
+    height: 230px;
   }
   .movie-card h2 {
     font-size: 14px;

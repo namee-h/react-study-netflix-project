@@ -4,6 +4,7 @@ import "./movieCard.style.css";
 function GenreBadge({ genre }) {
   return (
     <Chip
+      className="genre-badge"
       label={genre}
       variant="outlined"
       color="secondary"

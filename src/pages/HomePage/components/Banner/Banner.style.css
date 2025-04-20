@@ -3,6 +3,7 @@
   background-position: left;
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 }
 .banner::before {
   content: "";
@@ -38,8 +39,16 @@
 
   .banner-text-area p {
     font-size: 1rem;
-    max-height: 8em;
+    max-height: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+@media (max-width: 425px) {
+  .banner-text-area {
+    width: 100%;
+  }
+  .banner-text-area p {
+    margin-top: 0;
   }
 }

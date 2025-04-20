@@ -6,6 +6,7 @@ import { Alert } from "@mui/material";
 import MovieCard from "../MovieCard/MovieCard";
 import "../PopularMoviesSlide/PopularMoviesSlide.style.css";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.

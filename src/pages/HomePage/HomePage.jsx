@@ -1,5 +1,8 @@
-import React from 'react'
-import Banner from './components/Banner/Banner'
+import React from "react";
+import Banner from "./components/Banner/Banner";
+import PopularMoviesSlide from "./components/PopularMoviesSlide/PopularMoviesSlide";
+import TopRatedMoviesSlide from "./components/TopRatedMoviesSlide/TopRatedMoviesSlide";
+import UpcomingMoviesSlide from "./components/UpcomingMoviesSlide/UpcomingMoviesSlide";
 
 // 1.배너 =>popular movie를 들고와서 첫번째 아이템 보여주기
 // 2.popular movie
@@ -8,9 +11,12 @@ import Banner from './components/Banner/Banner'
 const HomePage = () => {
   return (
     <div>
-      <Banner/>
+      <Banner />
+      <PopularMoviesSlide />
+      <TopRatedMoviesSlide />
+      <UpcomingMoviesSlide />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

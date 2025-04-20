@@ -1,8 +1,8 @@
-body{
-    margin: 0;
-    background-color: #000;
-    color: white;
+body {
+  margin: 0;
+  background-color: #000 !important;
+  color: white !important;
 }
-.borders{
-    border: 1px solid red;
+.borders {
+  border: 1px solid red;
 }

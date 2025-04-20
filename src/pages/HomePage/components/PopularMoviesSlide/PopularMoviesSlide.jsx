@@ -5,7 +5,7 @@ import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import LoadingBackdrop from "../../../../common/components/LoadingBackDrop";
 import { Alert } from "@mui/material";
 import MovieCard from "../MovieCard/MovieCard";
-import "./PopularMoviesSlide.style.css";
+import "./popularMoviesSlide.style.css";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.

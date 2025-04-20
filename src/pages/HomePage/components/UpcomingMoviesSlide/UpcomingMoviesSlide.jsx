@@ -4,7 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import LoadingBackdrop from "../../../../common/components/LoadingBackDrop";
 import { Alert } from "@mui/material";
 import MovieCard from "../MovieCard/MovieCard";
-import "../PopularMoviesSlide/PopularMoviesSlide.style.css";
+import "../PopularMoviesSlide/popularMoviesSlide.style.css";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
 
 const responsive = {

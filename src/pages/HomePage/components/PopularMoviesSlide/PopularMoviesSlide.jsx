@@ -45,7 +45,12 @@ const PopularMoviesSlide = () => {
         containerClass="carousel-container"
       >
         {data.results.map((movie, index) => (
-          <MovieCard movie={movie} key={index} />
+          <MovieCard
+            movie={movie}
+            key={index}
+            rank={index + 1}
+            variant="ranked"
+          />
         ))}
       </Carousel>
     </div>

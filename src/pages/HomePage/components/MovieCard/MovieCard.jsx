@@ -8,7 +8,7 @@ import Age18PlusIcon from "./Icons/Age18PlusIcon";
 import ForumIcon from "@mui/icons-material/Forum";
 import { useGenreStore } from "../../../../store/genreStore";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, rank, variant = "default" }) => {
   const genreMap = useGenreStore((state) => state.genreMap);
   return (
     <div
@@ -18,9 +18,11 @@ const MovieCard = ({ movie }) => {
           `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}` +
           ")",
         borderRadius: "8px",
+        position: "relative",
       }}
-      className="movie-card"
+      className={`movie-card ${variant === "ranked" ? "with-rank" : ""}`}
     >
+      {variant === "ranked" && <div className="rank-layer">{rank}</div>}
       <div className="overlay">
         <Stack>
           <h2>{movie.title}</h2>

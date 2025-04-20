@@ -31,7 +31,7 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
       <div className="overlay">
         <Stack>
           <h2>{movie.title}</h2>
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             {displayedGenres.map((genre) => (
               <GenreBadge key={genre} genre={genre} />
             ))}

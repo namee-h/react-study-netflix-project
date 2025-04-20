@@ -12,7 +12,7 @@ function GenreBadge({ genre }) {
       sx={{
         fontWeight: "bold",
         borderRadius: "8px",
-        px: 1.5,
+        px: 1,
         textTransform: "capitalize",
         border: "1px solid red",
         color: "white",

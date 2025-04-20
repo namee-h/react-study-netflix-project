@@ -8,17 +8,16 @@ import "../PopularMoviesSlide/popularMoviesSlide.style.css";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
 
 const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 8,
-  },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1550 },
     items: 6,
   },
+  notebook: {
+    breakpoint: { max: 1550, min: 1150 },
+    items: 4,
+  },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
+    breakpoint: { max: 1024, min: 685 },
     items: 2,
   },
   mobile: {

@@ -58,3 +58,16 @@
   pointer-events: none;
   z-index: 0;
 }
+
+@media (max-width: 465px) {
+  .movie-card {
+    width: 200px;
+    height: 300px;
+  }
+}
+@media (max-width: 375px) {
+  .movie-card {
+    width: 150px;
+    height: 240px;
+  }
+}

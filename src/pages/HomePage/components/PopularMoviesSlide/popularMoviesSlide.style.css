@@ -4,5 +4,16 @@
   margin-bottom: 0;
 }
 .carousel-container {
+  overflow: hidden;
   height: 440px;
+}
+@media (max-width: 465px) {
+  .carousel-container {
+    height: 360px;
+  }
+}
+@media (max-width: 375px) {
+  .carousel-container {
+    height: 300px;
+  }
 }

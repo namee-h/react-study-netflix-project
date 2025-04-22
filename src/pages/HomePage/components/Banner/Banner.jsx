@@ -1,12 +1,12 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import LoadingBackdrop from "../../../../common/components/LoadingBackDrop";
 import Alert from "@mui/material/Alert";
 import "./Banner.style.css";
 import { Box } from "@mui/material";
+import { useMoviesQuery } from "../../../../hooks/useMovies";
 
 const Banner = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery();
+  const { data, isLoading, isError, error } = useMoviesQuery("popular");
   console.log("ddd", data);
   if (isLoading) {
     <LoadingBackdrop open={true} />;

@@ -57,17 +57,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AppLayout() {
+  const [keyword, setKeyword] = useState("");
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const toggleDrawer = () => setMobileOpen(!mobileOpen);
+  const navigate = useNavigate();
 
+  const searchByKeyword = (e) => {
+    e.preventDefault();
+    // url바꿔주기
+    navigate(`/movies?q=${keyword}`);
+    setKeyword("");
+  };
+  const moveToHome = () => {
+    navigate("/");
+  };
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Movies", path: "/movies" },
   ];
-  const navigate = useNavigate();
-  const moveToHome = () => {
-    navigate("/");
-  };
+
   return (
     // className={'borders'}
     <div>
@@ -103,6 +111,8 @@ export default function AppLayout() {
               <MenuIcon />
             </IconButton>
             <Box
+              component="form"
+              onSubmit={searchByKeyword}
               sx={{
                 display: { xs: "none", sm: "flex" },
                 gap: "10px",
@@ -116,9 +126,11 @@ export default function AppLayout() {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
+                  value={keyword}
+                  onChange={(event) => setKeyword(event.target.value)}
                 />
               </Search>
-              <Button variant="outlined" color="warning">
+              <Button variant="outlined" color="warning" type="submit">
                 Search
               </Button>
             </Box>
@@ -147,7 +159,7 @@ export default function AppLayout() {
             ))}
 
             {/* Search 영역 */}
-            <Box sx={{ mt: 2 }}>
+            <Box component="form" onSubmit={searchByKeyword} sx={{ mt: 2 }}>
               <Search sx={{ width: "100%" }}>
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -155,6 +167,8 @@ export default function AppLayout() {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
+                  value={keyword}
+                  onChange={(event) => setKeyword(event.target.value)}
                 />
               </Search>
               <Button
@@ -163,6 +177,7 @@ export default function AppLayout() {
                 sx={{ mt: 1 }}
                 onClick={toggleDrawer}
                 color="warning"
+                type="submit"
               >
                 Search
               </Button>

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button } from "@mui/material";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
@@ -59,11 +59,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function AppLayout() {
   const [keyword, setKeyword] = useState("");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [searchParams] = useSearchParams();
+  const currentQuery = searchParams.get("q");
   const toggleDrawer = () => setMobileOpen(!mobileOpen);
   const navigate = useNavigate();
 
   const searchByKeyword = (e) => {
     e.preventDefault();
+    const trimmed = keyword.trim();
+    if (!trimmed) {
+      alert("검색어를 입력해주세요");
+      return;
+    }
+    if (trimmed === currentQuery) {
+      alert(`"${trimmed}"에 대한 결과를 이미 보고있습니다.`);
+      setKeyword("");
+      return;
+    }
     // url바꿔주기
     navigate(`/movies?q=${keyword}`);
     setKeyword("");

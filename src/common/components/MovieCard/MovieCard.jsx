@@ -12,25 +12,43 @@ import "./movieCard.style.css";
 const MovieCard = ({ movie, rank, variant = "default" }) => {
   const genreMap = useGenreStore((state) => state.genreMap);
   const isMobile = useMediaQuery("(max-width:465px)");
+  const [mainTitle, subTitle] = movie.title.split(/:(.+)/); // 첫 번째 ':' 기준으로 분리
 
   const genreNames = movie.genre_ids.map((id) => genreMap[id]).filter(Boolean);
   const displayedGenres = isMobile ? genreNames.slice(0, 3) : genreNames;
+  const posterUrl = `"https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"`;
+
   return (
     <div
       style={{
-        backgroundImage:
-          "url(" +
-          `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}` +
-          ")",
+        backgroundImage: `url(${
+          movie.poster_path ? posterUrl : "/placeholder.png"
+        })`,
+        backgroundPosition: "center",
         borderRadius: "8px",
         position: "relative",
       }}
-      className={`movie-card ${variant === "ranked" ? "with-rank" : ""}`}
+      className={`movie-card ${variant} ${
+        variant === "ranked" ? "with-rank" : ""
+      }`}
     >
       {variant === "ranked" && <div className="rank-layer">{rank}</div>}
       <div className="overlay">
         <Stack>
-          <h2>{movie.title}</h2>
+          {variant === "list" && (
+            <Stack sx={{ margin: "1em 0" }}>
+              <Typography variant="h5" fontWeight="bold">
+                {mainTitle}
+              </Typography>
+              {subTitle && (
+                <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                  {subTitle}
+                </Typography>
+              )}
+            </Stack>
+          )}
+          {variant !== "list" && <h2>{movie.title}</h2>}
+
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
             {displayedGenres.map((genre) => (
               <GenreBadge key={genre} genre={genre} />

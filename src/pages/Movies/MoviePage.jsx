@@ -74,63 +74,88 @@ const MoviePage = () => {
 
   return (
     <Container sx={{ margin: "1em auto", padding: "0" }}>
-      <Grid
-        container
-        spacing={1}
-        sx={{ width: "100%", justifyContent: "center" }}
-      >
-        <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 3 }}>
-          <Box width="100%">
-            <SortFilter
-              sortOption={sortOption}
-              setSortOption={setSortOption}
-              handleSortChange={handleSortChange}
-            />
-          </Box>
-        </Grid>
+      {sortedResults.length === 0 ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="300px"
+          width="100%"
+        >
+          <Alert
+            severity="info"
+            sx={{
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+              backgroundColor: "#333",
+              color: "red",
+              border: "1px solid red",
+              borderRadius: 1,
+              padding: "12px 16px",
+            }}
+          >
+            No results found. Try another search!
+          </Alert>
+        </Box>
+      ) : (
+        <Grid
+          container
+          spacing={1}
+          sx={{ width: "100%", justifyContent: "center" }}
+        >
+          <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 3 }}>
+            <Box width="100%">
+              <SortFilter
+                sortOption={sortOption}
+                setSortOption={setSortOption}
+                handleSortChange={handleSortChange}
+              />
+            </Box>
+          </Grid>
 
-        <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 9 }}>
-          <Box width="100%">
-            <Grid container spacing={2}>
-              {sortedResults.map((movie, index) => (
-                <Grid
-                  size={{ xs: 12, sm: 4, lg: 3 }}
-                  justifyItems="center"
-                  key={index}
-                >
-                  <MovieCard movie={movie} variant="list" />
-                </Grid>
-              ))}
-            </Grid>
+          <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 9 }}>
+            <Box width="100%">
+              <Grid container spacing={2}>
+                {sortedResults.map((movie, index) => (
+                  <Grid
+                    size={{ xs: 12, sm: 4, lg: 3 }}
+                    justifyItems="center"
+                    key={index}
+                  >
+                    <MovieCard movie={movie} variant="list" />
+                  </Grid>
+                ))}
+              </Grid>
 
-            <ReactPaginate
-              pageCount={data?.total_pages} //전체페이지 몇개인지
-              pageRangeDisplayed={3} //중앙페이지수
-              marginPagesDisplayed={0}
-              onPageChange={handlePageClick}
-              forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
-              previousLabel={page !== 1 ? "<" : null} //previous
-              nextLabel={page !== data.total_pages ? ">" : null} //next
-              breakLabel={null}
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              containerClassName="pagination"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName={`page-item previous ${
-                page !== 1 ? "" : "disabled"
-              }`}
-              previousLinkClassName="page-link"
-              nextClassName={`page-item next ${
-                page !== data.totalPages ? "" : "disabled"
-              }`}
-              nextLinkClassName="page-link"
-              activeClassName="active"
-              renderOnZeroPageCount={null}
-            />
-          </Box>
+              <ReactPaginate
+                pageCount={data?.total_pages} //전체페이지 몇개인지
+                pageRangeDisplayed={3} //중앙페이지수
+                marginPagesDisplayed={0}
+                onPageChange={handlePageClick}
+                forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
+                previousLabel={page !== 1 ? "<" : null} //previous
+                nextLabel={page !== data.total_pages ? ">" : null} //next
+                breakLabel={null}
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName={`page-item previous ${
+                  page !== 1 ? "" : "disabled"
+                }`}
+                previousLinkClassName="page-link"
+                nextClassName={`page-item next ${
+                  page !== data.totalPages ? "" : "disabled"
+                }`}
+                nextLinkClassName="page-link"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </Container>
   );
 };

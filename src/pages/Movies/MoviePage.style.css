@@ -1,0 +1,41 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  gap: 8px;
+  margin-top: 2rem;
+}
+
+.page-item {
+  border: 1px solid red;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.page-item:hover {
+  background-color: red;
+  transition: 0.5s;
+}
+.page-item.active {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-color: red;
+  transform: scale(1.1) translateY(-5px);
+  transition: ease-in-out 0.5s;
+}
+
+.page-link {
+  text-decoration: none;
+  color: inherit;
+}
+.page-item.previous.disabled {
+  display: none;
+}
+.page-item.next.disabled {
+  display: none;
+}

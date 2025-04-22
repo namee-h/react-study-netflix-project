@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import "./MoviePage.style.css";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams } from "react-router-dom";
 import LoadingBackdrop from "../../common/components/LoadingBackDrop";
-import { Alert, Box, Container, Grid } from "@mui/material";
+import { Alert, Box, Container, Grid, IconButton } from "@mui/material";
 import MovieCard from "../../common/components/MovieCard/MovieCard";
+import ReactPaginate from "react-paginate";
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popularMovie 보여주기
@@ -15,9 +17,18 @@ import MovieCard from "../../common/components/MovieCard/MovieCard";
 // 페이지값이 바뀔때마다 useSearchMovie에 페이지까지 넣어서 fetch
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
+  const [page, setPage] = useState(1);
   const keyword = query.get("q");
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword });
+  const { data, isLoading, isError, error } = useSearchMovieQuery({
+    keyword,
+    page,
+  });
+
+  const handlePageClick = ({ selected }) => {
+    console.log("zmfflr?");
+    setPage(selected + 1);
+  };
   console.log("moviepage", data);
   if (isLoading) {
     return <LoadingBackdrop open={true} />;
@@ -26,21 +37,56 @@ const MoviePage = () => {
     return <Alert severity="error">{error.message}</Alert>;
   }
   return (
-    <Container className="borders" maxWidth="xl" sx={{ marginTop: "2em" }}>
-      <Grid container sx={{ width: "100%" }} spacing={1}>
-        <Grid item lg={4} className="borders" width="29%">
+    <Container className="borders" sx={{ margin: "1em auto", padding: "0" }}>
+      <Grid container sx={{ width: "100%", justifyContent: "center" }}>
+        <Grid className="borders" margin="1em auto" size={{ sm: 12, md: 3 }}>
           <Box width="100%">필터</Box>
         </Grid>
 
-        <Grid item lg={8} className="borders" width="69%">
+        <Grid
+          className="borders"
+          margin="1em auto"
+          padding="1em 0"
+          size={{ sm: 12, md: 9 }}
+        >
           <Box width="100%">
-            <Grid container spacing={2} justifyContent="center">
+            <Grid container spacing={2}>
               {data.results.map((movie, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
+                <Grid
+                  size={{ xs: 12, sm: 4, lg: 3 }}
+                  justifyItems="center"
+                  key={index}
+                >
                   <MovieCard movie={movie} variant="list" />
                 </Grid>
               ))}
             </Grid>
+
+            <ReactPaginate
+              pageCount={data?.total_pages} //전체페이지 몇개인지
+              pageRangeDisplayed={3} //중앙페이지수
+              marginPagesDisplayed={0}
+              onPageChange={handlePageClick}
+              forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
+              previousLabel={page !== 1 ? "<" : null} //previous
+              nextLabel={page !== data.total_pages ? ">" : null} //next
+              breakLabel={null}
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName={`page-item previous ${
+                page !== 1 ? "" : "disabled"
+              }`}
+              previousLinkClassName="page-link"
+              nextClassName={`page-item next ${
+                page !== data.totalPages ? "" : "disabled"
+              }`}
+              nextLinkClassName="page-link"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+            />
           </Box>
         </Grid>
       </Grid>

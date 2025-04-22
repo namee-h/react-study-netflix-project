@@ -79,7 +79,7 @@ export default function AppLayout() {
   return (
     // className={'borders'}
     <div>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box width="100%" sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: "#141414" }}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>

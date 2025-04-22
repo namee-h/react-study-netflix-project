@@ -60,6 +60,10 @@
   pointer-events: none;
   z-index: 0;
 }
+.movie-card.list {
+  width: 200px;
+  height: 320px;
+}
 .movie-card.list:hover {
   transform: scale(1.05); /* 조금만 커지게 */
   z-index: 2;
@@ -79,6 +83,20 @@
     transform: scale(1.1) translateZ(20px);
     z-index: 1;
   }
+  .movie-card.list {
+    width: 220px;
+    height: 330px;
+  }
+  .movie-card.list:hover {
+    transform: scale(1.05); /* 조금만 커지게 */
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .movie-card.list .overlay:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 }
 @media (max-width: 375px) {
   .movie-card {
@@ -92,5 +110,19 @@
   .genre-badge {
     font-weight: normal !important;
     padding: 0px !important;
+  }
+  .movie-card.list {
+    width: 220px;
+    height: 330px;
+  }
+  .movie-card.list:hover {
+    transform: scale(1.05); /* 조금만 커지게 */
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .movie-card.list .overlay:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }

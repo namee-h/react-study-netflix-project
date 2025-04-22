@@ -3,16 +3,7 @@ import "./MoviePage.style.css";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams } from "react-router-dom";
 import LoadingBackdrop from "../../common/components/LoadingBackDrop";
-import {
-  Alert,
-  Box,
-  Container,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Alert, Box, Container, Grid } from "@mui/material";
 import MovieCard from "../../common/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "./components/SortFilter/SortFilter";
@@ -119,10 +110,12 @@ const MoviePage = () => {
                 {sortedResults.map((movie, index) => (
                   <Grid
                     size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-                    justifyItems="center"
+                    sx={{ display: "flex", justifyContent: "center" }}
                     key={index}
                   >
-                    <MovieCard movie={movie} variant="list" />
+                    <Box>
+                      <MovieCard movie={movie} variant="list" />
+                    </Box>
                   </Grid>
                 ))}
               </Grid>

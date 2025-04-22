@@ -6,7 +6,7 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AllAgeIcon from "./Icons/AllAgeIcon";
 import Age18PlusIcon from "./Icons/Age18PlusIcon";
 import ForumIcon from "@mui/icons-material/Forum";
-import { useGenreStore } from "../../../../store/genreStore";
+import { useGenreStore } from "../../../store/genreStore";
 import "./movieCard.style.css";
 
 const MovieCard = ({ movie, rank, variant = "default" }) => {

@@ -113,16 +113,14 @@ const MoviePage = () => {
             </Box>
           </Grid>
 
-          <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 9 }}>
+          <Grid margin="1em auto" padding="1em auto" size={{ sm: 12, md: 9 }}>
             <Box width="100%">
               <Grid container spacing={2} justifyContent="center">
                 {sortedResults.map((movie, index) => (
                   <Grid
-                    item
                     size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-                    // justifyItems="center"
+                    justifyItems="center"
                     key={index}
-                    width="100%"
                   >
                     <MovieCard movie={movie} variant="list" />
                   </Grid>

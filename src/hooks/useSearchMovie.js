@@ -10,10 +10,10 @@ const fetchSearchMovie = ({ keyword, page, sortOption }) => {
   }
 };
 
-export const useSearchMovieQuery = ({ keyword, page = 1, sortOption }) => {
+export const useSearchMovieQuery = ({ keyword, page, sortOption }) => {
   return useQuery({
     queryKey: ["movie-search", { keyword, page, sortOption }],
     queryFn: () => fetchSearchMovie({ keyword, page, sortOption }),
-    select: (res) => res.data,
+    select: (result) => result.data,
   });
 };

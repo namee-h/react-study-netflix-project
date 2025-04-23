@@ -33,6 +33,14 @@ const MoviePage = () => {
     page,
     sortOption,
   });
+
+  if (isLoading) {
+    return <LoadingBackdrop open={true} />;
+  }
+  if (isError) {
+    return <Alert severity="error">{error.message}</Alert>;
+  }
+
   const handleSortChange = (e) => {
     const sortSelected = e.target.value;
     setSortOption(sortSelected);
@@ -43,16 +51,12 @@ const MoviePage = () => {
     setSearchParams(params);
   };
   const handlePageClick = ({ selected }) => {
-    console.log("zmfflr?");
+    console.log("Clicked page:", selected + 1);
     setPage(selected + 1);
+    // setCurrentPageForPaginate(selected);
   };
   console.log("moviepage", data);
-  if (isLoading) {
-    return <LoadingBackdrop open={true} />;
-  }
-  if (isError) {
-    return <Alert severity="error">{error.message}</Alert>;
-  }
+
   // 😭 검색값있을때 정렬
   const sortedResults = keyword
     ? [...data.results].sort((a, b) => {
@@ -62,6 +66,8 @@ const MoviePage = () => {
         return 0;
       })
     : data.results;
+
+  const safeTotalPages = data.total_pages > 100 ? 100 : data.total_pages;
 
   return (
     <Container sx={{ margin: "1em auto", padding: "0" }}>
@@ -106,7 +112,12 @@ const MoviePage = () => {
 
           <Grid margin="1em auto" padding="1em auto" size={{ sm: 12, md: 9 }}>
             <Box width="100%">
-              <Grid container spacing={2} justifyContent="center">
+              <Grid
+                container
+                spacing={2}
+                justifyContent="center"
+                marginBottom="1em"
+              >
                 {sortedResults.map((movie, index) => (
                   <Grid
                     size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
@@ -119,32 +130,45 @@ const MoviePage = () => {
                   </Grid>
                 ))}
               </Grid>
-
-              <ReactPaginate
-                pageCount={data?.total_pages} //전체페이지 몇개인지
-                pageRangeDisplayed={3} //중앙페이지수
-                marginPagesDisplayed={0}
-                onPageChange={handlePageClick}
-                forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
-                previousLabel={page !== 1 ? "<" : null} //previous
-                nextLabel={page !== data.total_pages ? ">" : null} //next
-                breakLabel={null}
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName={`page-item previous ${
-                  page !== 1 ? "" : "disabled"
-                }`}
-                previousLinkClassName="page-link"
-                nextClassName={`page-item next ${
-                  page !== data.totalPages ? "" : "disabled"
-                }`}
-                nextLinkClassName="page-link"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "1em 0",
+                  maxWidth: "100%",
+                  overflowX: "auto",
+                }}
+              >
+                <ReactPaginate
+                  pageCount={safeTotalPages} //전체페이지 몇개인지
+                  pageRangeDisplayed={2} //중앙페이지수
+                  marginPagesDisplayed={1}
+                  onPageChange={handlePageClick}
+                  onClick={(e) => {
+                    console.log("ReactClicked page:", e.selected);
+                  }}
+                  forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
+                  previousLabel="<" //previous
+                  nextLabel=">" //next
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName={`page-item previous ${
+                    page !== 1 ? "" : "disabled"
+                  }`}
+                  previousLinkClassName="page-link"
+                  nextClassName={`page-item next ${
+                    page !== data.totalPages ? "" : "disabled"
+                  }`}
+                  nextLinkClassName="page-link"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
+              </Box>
             </Box>
           </Grid>
         </Grid>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./MoviePage.style.css";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingBackdrop from "../../common/components/LoadingBackDrop";
 import { Alert, Box, Container, Grid } from "@mui/material";
 import MovieCard from "../../common/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "./components/SortFilter/SortFilter";
+import GenreFilter from "./components/GenreFilter/GenreFilter";
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popularMovie 보여주기
@@ -17,6 +18,7 @@ import SortFilter from "./components/SortFilter/SortFilter";
 // 페이지네이션 클릭시 페이지바꿔주기
 // 페이지값이 바뀔때마다 useSearchMovie에 페이지까지 넣어서 fetch
 const MoviePage = () => {
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const [sortOption, setSortOption] = useState("popularity.desc");
@@ -67,7 +69,23 @@ const MoviePage = () => {
       })
     : data.results;
 
-  const safeTotalPages = data.total_pages > 100 ? 100 : data.total_pages;
+  const filteredResults = selectedGenres.length
+    ? sortedResults.filter((movie) =>
+        movie.genre_ids.some((id) => selectedGenres.includes(id))
+      )
+    : sortedResults;
+
+  const itemsPerPage = 20;
+
+  const safeTotalPages = selectedGenres.length
+    ? Math.ceil(filteredResults.length / itemsPerPage)
+    : data.total_pages > 100
+    ? 100
+    : data.total_pages;
+
+  const pagedResults = selectedGenres.length
+    ? filteredResults.slice((page - 1) * itemsPerPage, page * itemsPerPage)
+    : data.results;
 
   return (
     <Container sx={{ margin: "1em auto", padding: "0" }}>
@@ -102,11 +120,19 @@ const MoviePage = () => {
         >
           <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 3 }}>
             <Box width="100%">
-              <SortFilter
-                sortOption={sortOption}
-                setSortOption={setSortOption}
-                handleSortChange={handleSortChange}
-              />
+              <Box marginBottom="1em">
+                <SortFilter
+                  sortOption={sortOption}
+                  setSortOption={setSortOption}
+                  handleSortChange={handleSortChange}
+                />
+              </Box>
+              <Box marginBottom="1em">
+                <GenreFilter
+                  selectedGenres={selectedGenres}
+                  setSelectedGenres={setSelectedGenres}
+                />
+              </Box>
             </Box>
           </Grid>
 
@@ -118,7 +144,7 @@ const MoviePage = () => {
                 justifyContent="center"
                 marginBottom="1em"
               >
-                {sortedResults.map((movie, index) => (
+                {pagedResults.map((movie, index) => (
                   <Grid
                     size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                     sx={{ display: "flex", justifyContent: "center" }}

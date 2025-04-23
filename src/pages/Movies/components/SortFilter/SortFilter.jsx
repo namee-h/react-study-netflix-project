@@ -23,10 +23,11 @@ const SortFilter = ({ sortOption, handleSortChange }) => {
           onChange={handleSortChange}
           label="정렬 기준"
           sx={{
-            backgroundColor: "red",
+            backgroundColor: "#111",
             color: "#fff",
             borderRadius: 1,
             fontSize: "1rem",
+            fontWeight: "bolder",
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: "#555",
             },

@@ -74,6 +74,7 @@
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.8);
 }
+
 @media (max-width: 465px) {
   .movie-card {
     width: 200px;

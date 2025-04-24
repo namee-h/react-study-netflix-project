@@ -1,8 +1,9 @@
 import React from "react";
-import Banner from "./components/Banner/Banner";
 import PopularMoviesSlide from "./components/PopularMoviesSlide/PopularMoviesSlide";
 import TopRatedMoviesSlide from "./components/TopRatedMoviesSlide/TopRatedMoviesSlide";
 import UpcomingMoviesSlide from "./components/UpcomingMoviesSlide/UpcomingMoviesSlide";
+import Banner from "../../common/components/Banner/Banner";
+import ScrollTopButton from "../../common/components/Buttons/ScrollTopButton";
 
 // 1.배너 =>popular movie를 들고와서 첫번째 아이템 보여주기
 // 2.popular movie
@@ -15,6 +16,7 @@ const HomePage = () => {
       <PopularMoviesSlide />
       <TopRatedMoviesSlide />
       <UpcomingMoviesSlide />
+      <ScrollTopButton />
     </div>
   );
 };

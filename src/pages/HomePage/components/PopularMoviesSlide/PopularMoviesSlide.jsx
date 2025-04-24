@@ -19,7 +19,7 @@ const PopularMoviesSlide = () => {
         title="Popular Movies"
         movies={data.results}
         responsive={responsive}
-        variant="ranked"
+        type="ranked"
       />
     </div>
   );

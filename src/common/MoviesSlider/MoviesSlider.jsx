@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../components/MovieCard/MovieCard";
 
-const MoviesSlider = ({ title, movies, responsive }) => {
+const MoviesSlider = ({ title, movies, responsive, type = "default" }) => {
   return (
     <div>
       <h3 className="movie-list-category-title">{title}</h3>
@@ -20,7 +20,7 @@ const MoviesSlider = ({ title, movies, responsive }) => {
             movie={movie}
             key={index}
             rank={index + 1}
-            variant={title === "Popular Movies" ? "ranked" : ""}
+            variant={type}
           />
         ))}
       </Carousel>

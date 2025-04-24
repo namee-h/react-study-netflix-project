@@ -8,6 +8,7 @@ import Age18PlusIcon from "./Icons/Age18PlusIcon";
 import ForumIcon from "@mui/icons-material/Forum";
 import { useGenreStore } from "../../../store/genreStore";
 import "./movieCard.style.css";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie, rank, variant = "default" }) => {
   const genreMap = useGenreStore((state) => state.genreMap);
@@ -15,11 +16,21 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
   const [mainTitle, subTitle] = movie.title.split(/:(.+)/); // 첫 번째 ':' 기준으로 분리
 
   const genreNames = movie.genre_ids.map((id) => genreMap[id]).filter(Boolean);
-  const displayedGenres = isMobile ? genreNames.slice(0, 3) : genreNames;
+  const displayedGenres =
+    variant === "list"
+      ? genreNames.slice(0, 3)
+      : isMobile
+      ? genreNames.slice(0, 3)
+      : genreNames;
   const posterUrl = `"https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"`;
-
+  const navigate = useNavigate();
+  const handleClickToDetail = () => {
+    // console.log("디테일가쟈");
+    navigate(`/movies/${movie.id}`);
+  };
   return (
     <div
+      onClick={handleClickToDetail}
       style={{
         backgroundImage: `url(${
           movie.poster_path ? posterUrl : "/placeholder.png"

@@ -8,6 +8,8 @@ import MovieCard from "../../common/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "./components/SortFilter/SortFilter";
 import GenreFilter from "./components/GenreFilter/GenreFilter";
+import ScrollTopButton from "../../common/components/Buttons/ScrollTopButton";
+import GoBackButton from "../../common/components/Buttons/GoBackButton";
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popularMovie 보여주기
@@ -199,6 +201,8 @@ const MoviePage = () => {
           </Grid>
         </Grid>
       )}
+      <GoBackButton />
+      <ScrollTopButton />
     </Container>
   );
 };

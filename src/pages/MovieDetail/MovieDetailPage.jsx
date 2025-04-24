@@ -11,6 +11,7 @@ import ScrollTopButton from "../../common/components/Buttons/ScrollTopButton";
 import RelatedMoviesSlide from "./components/RelatedMoviesSlide";
 import RecommendationsSlide from "./components/RecommendationsSlide";
 import { useSimilarMoviesQuery } from "../../hooks/useSimilarMovies";
+import Reviews from "./components/Reviews/Reviews";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -34,6 +35,7 @@ const MovieDetailPage = () => {
       ) : recommended.data && recommended.data.results.length > 0 ? (
         <RecommendationsSlide movies={recommended.data.results} />
       ) : null}
+      <Reviews id={id} />
       <GoBackButton />
       <ScrollTopButton />
     </div>

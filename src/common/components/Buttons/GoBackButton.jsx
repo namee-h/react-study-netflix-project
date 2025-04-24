@@ -20,11 +20,10 @@ const GoBackButton = ({ label = "Go Back" }) => {
           "&:hover": {
             backgroundColor: "#cc0000",
           },
-          position: "absolute", // 필요시 수정
-          bottom: "1rem",
+          position: "fixed", // 필요시 수정
+          bottom: 40,
           left: "1rem",
           zIndex: 1000,
-          display: "fixed",
         }}
       >
         <ArrowBackIcon />

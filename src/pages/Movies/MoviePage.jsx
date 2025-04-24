@@ -142,7 +142,7 @@ const MoviePage = () => {
                 container
                 spacing={2}
                 justifyContent="center"
-                marginBottom="1em"
+                marginBottom="1em 0"
               >
                 {pagedResults.map((movie, index) => (
                   <Grid

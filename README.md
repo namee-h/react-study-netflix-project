@@ -109,4 +109,4 @@ React Router의 useSearchParams를 활용해 URL 쿼리 기반으로 정렬 상�
 
 영화 및 이미지 데이터는 TMDB (The Movie Database)에서 제공받았습니다.
 
-💖 Built with React & Vite | Powered by 코딩알려주는누나
+💖 Built with React & Vite | Powered by [코딩알려주는누나](https://codingnoona.thinkific.com/courses/3)

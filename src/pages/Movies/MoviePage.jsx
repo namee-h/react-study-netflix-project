@@ -28,17 +28,8 @@ const MoviePage = () => {
   const keyword = query.get("q");
 
   useEffect(() => {
-    const sortParam = query.get("sort");
-    if (keyword && !sortParam) {
-      setSortOption("popularity.desc");
-
-      const params = new URLSearchParams(searchParams);
-      params.set("sort", "popularity.desc");
-      setSearchParams(params);
-    } else if (sortParam) {
-      setSortOption(sortParam); // URL에서 넘어온 정렬값 반영
-    }
     setPage(1);
+    setSortOption("popularity.desc");
   }, [keyword]);
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({
@@ -71,14 +62,11 @@ const MoviePage = () => {
   console.log("moviepage", data);
 
   // 😭 검색값있을때 정렬
-  const sortedResults = keyword
-    ? [...data.results].sort((a, b) => {
-        if (sortOption === "popularity.desc")
-          return b.popularity - a.popularity;
-        if (sortOption === "popularity.asc") return a.popularity - b.popularity;
-        return 0;
-      })
-    : data.results;
+  const sortedResults = [...data.results].sort((a, b) => {
+    if (sortOption === "popularity.desc") return b.popularity - a.popularity;
+    if (sortOption === "popularity.asc") return a.popularity - b.popularity;
+    return 0;
+  });
 
   const filteredResults = selectedGenres.length
     ? sortedResults.filter((movie) =>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GenreBadge from "./Chip";
 import { Box, Chip, Stack, Typography, useMediaQuery } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -11,19 +11,29 @@ import "./movieCard.style.css";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie, rank, variant = "default" }) => {
+  const [bgImage, setBgImage] = useState("");
   const genreMap = useGenreStore((state) => state.genreMap);
   const isMobile = useMediaQuery("(max-width:465px)");
   const [mainTitle, subTitle] = movie.title.split(/:(.+)/); // 첫 번째 ':' 기준으로 분리
   const navigate = useNavigate();
 
-  const [imgSrc, setImgSrc] = useState(
-    movie.poster_path
-      ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
-      : "/placeholder.png"
-  );
-  const handleImageError = () => {
-    setImgSrc("/placeholder.png");
-  };
+  useEffect(() => {
+    const img = new Image();
+    const posterUrl = `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`;
+    const fallbackUrl = "/placeholder.png";
+
+    img.src = posterUrl;
+    img.onload = () => setBgImage(posterUrl); // 성공 시 포스터 사용
+    img.onerror = () => setBgImage(fallbackUrl); // 실패 시 대체 이미지
+  }, [movie.poster_path]);
+  // const [imgSrc, setImgSrc] = useState(
+  //   movie.poster_path
+  //     ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
+  //     : "/placeholder.png"
+  // );
+  // const handleImageError = () => {
+  //   setImgSrc("/placeholder.png");
+  // };
 
   const handleClickToDetail = () => {
     navigate(`/movies/${movie.id}`);
@@ -45,18 +55,22 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
         variant === "ranked" ? "with-rank" : ""
       }`}
       style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
         position: "relative",
         borderRadius: "8px",
         cursor: "pointer",
       }}
     >
-      {/* ✅ 이미지 태그로 변경 */}
+      {/* ✅ 이미지 태그로 변경
       <img
         className="movie-image"
         src={imgSrc}
         alt={movie.title}
         onError={handleImageError}
-      />
+        loading="lazy"
+      /> */}
       {variant === "ranked" && <div className="rank-layer">{rank}</div>}
       <div className="overlay">
         <Stack>

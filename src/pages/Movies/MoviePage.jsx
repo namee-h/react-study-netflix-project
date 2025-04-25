@@ -64,11 +64,11 @@ const MoviePage = () => {
     setSearchParams(params);
   };
   const handlePageClick = ({ selected }) => {
-    console.log("Clicked page:", selected + 1);
+    // console.log("Clicked page:", selected + 1);
     setPage(selected + 1);
     // setCurrentPageForPaginate(selected);
   };
-  console.log("moviepage", data);
+  // console.log("moviepage", data);
 
   // 😭 검색값있을때 정렬
   // const sortedResults = [...data.results].sort((a, b) => {
@@ -220,9 +220,9 @@ const MoviePage = () => {
                   pageRangeDisplayed={2} //중앙페이지수
                   marginPagesDisplayed={1}
                   onPageChange={handlePageClick}
-                  onClick={(e) => {
-                    console.log("ReactClicked page:", e.selected);
-                  }}
+                  // onClick={(e) => {
+                  //   console.log("ReactClicked page:", e.selected);
+                  // }}
                   forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
                   previousLabel="<" //previous
                   nextLabel=">" //next

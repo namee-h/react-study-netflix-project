@@ -23,17 +23,9 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
     const fallbackUrl = "/placeholder.png";
 
     img.src = posterUrl;
-    img.onload = () => setBgImage(posterUrl); // 성공 시 포스터 사용
-    img.onerror = () => setBgImage(fallbackUrl); // 실패 시 대체 이미지
+    img.onload = () => setBgImage(posterUrl);
+    img.onerror = () => setBgImage(fallbackUrl);
   }, [movie.poster_path]);
-  // const [imgSrc, setImgSrc] = useState(
-  //   movie.poster_path
-  //     ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
-  //     : "/placeholder.png"
-  // );
-  // const handleImageError = () => {
-  //   setImgSrc("/placeholder.png");
-  // };
 
   const handleClickToDetail = () => {
     navigate(`/movies/${movie.id}`);
@@ -64,7 +56,7 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
         border: "2px solid #fff",
       }}
     >
-      {/* ✅ 이미지 태그로 변경
+      {/* ✅ 이미지 태그로 변경 하려했으나 데이터 받아오는시간이 너무 오래걸림
       <img
         className="movie-image"
         src={imgSrc}

@@ -106,7 +106,12 @@ export default function AppLayout() {
                     key={label}
                     component={Link}
                     to={path}
-                    sx={{ color: "#fff" }}
+                    sx={{
+                      color: "#fff",
+                      "&:hover": {
+                        color: "red",
+                      },
+                    }}
                   >
                     {label}
                   </Button>
@@ -141,7 +146,15 @@ export default function AppLayout() {
                   onChange={(event) => setKeyword(event.target.value)}
                 />
               </Search>
-              <Button variant="outlined" color="warning" type="submit">
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "red",
+                  outlineColor: "red",
+                  border: "1px solid red",
+                }}
+                type="submit"
+              >
                 Search
               </Button>
             </Box>

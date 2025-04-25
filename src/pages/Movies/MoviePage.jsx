@@ -3,13 +3,21 @@ import "./MoviePage.style.css";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams } from "react-router-dom";
 import LoadingBackdrop from "../../common/components/LoadingBackDrop";
-import { Alert, Box, Container, Grid } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import MovieCard from "../../common/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import SortFilter from "./components/SortFilter/SortFilter";
 import GenreFilter from "./components/GenreFilter/GenreFilter";
 import ScrollTopButton from "../../common/components/Buttons/ScrollTopButton";
 import GoBackButton from "../../common/components/Buttons/GoBackButton";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popularMovie 보여주기
@@ -36,6 +44,7 @@ const MoviePage = () => {
     keyword,
     page,
     sortOption,
+    genres: selectedGenres,
   });
 
   if (isLoading) {
@@ -62,11 +71,21 @@ const MoviePage = () => {
   console.log("moviepage", data);
 
   // 😭 검색값있을때 정렬
-  const sortedResults = [...data.results].sort((a, b) => {
-    if (sortOption === "popularity.desc") return b.popularity - a.popularity;
-    if (sortOption === "popularity.asc") return a.popularity - b.popularity;
-    return 0;
-  });
+  // const sortedResults = [...data.results].sort((a, b) => {
+  //   if (sortOption === "popularity.desc") return b.popularity - a.popularity;
+  //   if (sortOption === "popularity.asc") return a.popularity - b.popularity;
+  //   return 0;
+  // });
+  const sortedResults = keyword
+    ? [...data.results].sort((a, b) => {
+        if (sortOption === "popularity.desc")
+          return b.popularity - a.popularity;
+        if (sortOption === "popularity.asc") return a.popularity - b.popularity;
+        if (sortOption === "vote_average.desc")
+          return b.vote_average - a.vote_average;
+        return 0;
+      })
+    : data.results;
 
   const filteredResults = selectedGenres.length
     ? sortedResults.filter((movie) =>
@@ -86,6 +105,12 @@ const MoviePage = () => {
     ? filteredResults.slice((page - 1) * itemsPerPage, page * itemsPerPage)
     : data.results;
 
+  const clearSearch = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("q"); // 검색어 쿼리 삭제
+    params.set("page", 1); // 페이지도 1로 초기화 (선택)
+    setSearchParams(params);
+  };
   return (
     <Container sx={{ margin: "1em auto", padding: "0" }}>
       {sortedResults.length === 0 ? (
@@ -118,6 +143,31 @@ const MoviePage = () => {
           sx={{ width: "100%", justifyContent: "center" }}
         >
           <Grid margin="1em auto" padding="1em 0" size={{ sm: 12, md: 3 }}>
+            {keyword && (
+              <div className="keyword-area">
+                <div>search : {keyword}</div>
+                <Box
+                  mb={1}
+                  sx={{ position: "absolute", right: "2px", top: "2px" }}
+                >
+                  <Tooltip title="Clear search">
+                    <IconButton
+                      onClick={clearSearch}
+                      sx={{
+                        backgroundColor: "#111",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "#b30000",
+                        },
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <RestartAltIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              </div>
+            )}
             <Box width="100%">
               <Box marginBottom="1em">
                 <SortFilter

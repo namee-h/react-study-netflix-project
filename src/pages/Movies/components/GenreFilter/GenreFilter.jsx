@@ -38,7 +38,14 @@ const GenreFilter = ({ selectedGenres, setSelectedGenres }) => {
         aria-controls="genre-content"
         id="genre-header"
       >
-        <Typography fontWeight="bold">Genre Filter</Typography>
+        <Typography fontWeight="bold">
+          Genre Filter{" "}
+          {selectedGenres.length > 0 && (
+            <span style={{ color: "#999", fontSize: "0.9rem" }}>
+              ({selectedGenres.length} selected)
+            </span>
+          )}
+        </Typography>
       </AccordionSummary>
       <Box mb={1} sx={{ position: "absolute", right: "50px", top: "10px" }}>
         <Tooltip title="Clear selected genres">

@@ -49,7 +49,7 @@ const MoviePage = () => {
 
     const params = new URLSearchParams(searchParams);
     params.set("sort", sortSelected);
-    setSearchParams(params);
+    setSearchParams(params, { replace: true });
   };
 
   const handlePageClick = ({ selected }) => {

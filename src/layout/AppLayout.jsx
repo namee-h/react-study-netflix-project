@@ -12,6 +12,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
+import Footer from "./components/Footer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -90,8 +91,8 @@ export default function AppLayout() {
   return (
     // className={'borders'}
     <div>
-      <Box width="100%" sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: "#141414" }}>
+      <Box width="100%" sx={{ flexGrow: 1, height: "80px" }}>
+        <AppBar position="fixed" sx={{ backgroundColor: "#141414" }}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
               <img
@@ -210,6 +211,7 @@ export default function AppLayout() {
         </Drawer>
       </Box>
       <Outlet />
+      <Footer />
     </div>
   );
 }

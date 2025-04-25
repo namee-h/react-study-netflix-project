@@ -28,8 +28,17 @@ const MoviePage = () => {
   const keyword = query.get("q");
 
   useEffect(() => {
+    const sortParam = query.get("sort");
+    if (keyword && !sortParam) {
+      setSortOption("popularity.desc");
+
+      const params = new URLSearchParams(searchParams);
+      params.set("sort", "popularity.desc");
+      setSearchParams(params);
+    } else if (sortParam) {
+      setSortOption(sortParam); // URL에서 넘어온 정렬값 반영
+    }
     setPage(1);
-    setSortOption("popularity.desc");
   }, [keyword]);
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({

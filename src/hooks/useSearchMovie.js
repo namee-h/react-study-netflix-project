@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
-const fetchSearchMovie = ({ keyword, page, sortOption }) => {
+const fetchSearchMovie = ({ keyword, page = 1, sortOption }) => {
   const sortQuery = sortOption ? sortOption : "";
   if (keyword) {
     return api.get(`/search/movie?query=${keyword}&page=${page}`);

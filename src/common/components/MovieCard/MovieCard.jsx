@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import GenreBadge from "./Chip";
 import { Box, Chip, Stack, Typography, useMediaQuery } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
@@ -14,35 +14,49 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
   const genreMap = useGenreStore((state) => state.genreMap);
   const isMobile = useMediaQuery("(max-width:465px)");
   const [mainTitle, subTitle] = movie.title.split(/:(.+)/); // 첫 번째 ':' 기준으로 분리
+  const navigate = useNavigate();
 
-  const genreNames = movie.genre_ids.map((id) => genreMap[id]).filter(Boolean);
+  const [imgSrc, setImgSrc] = useState(
+    movie.poster_path
+      ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
+      : "/placeholder.png"
+  );
+  const handleImageError = () => {
+    setImgSrc("/placeholder.png");
+  };
+
+  const handleClickToDetail = () => {
+    navigate(`/movies/${movie.id}`);
+  };
+  const genreNames = (movie.genre_ids || [])
+    .map((id) => genreMap[id])
+    .filter(Boolean);
   const displayedGenres =
     variant === "list"
       ? genreNames.slice(0, 3)
       : isMobile
       ? genreNames.slice(0, 3)
       : genreNames;
-  const posterUrl = `"https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"`;
-  const navigate = useNavigate();
-  const handleClickToDetail = () => {
-    // console.log("디테일가쟈");
-    navigate(`/movies/${movie.id}`);
-  };
+
   return (
     <div
       onClick={handleClickToDetail}
-      style={{
-        backgroundImage: `url(${
-          movie.poster_path ? posterUrl : "/placeholder.png"
-        })`,
-        backgroundPosition: "center",
-        borderRadius: "8px",
-        position: "relative",
-      }}
       className={`movie-card ${variant} ${
         variant === "ranked" ? "with-rank" : ""
       }`}
+      style={{
+        position: "relative",
+        borderRadius: "8px",
+        cursor: "pointer",
+      }}
     >
+      {/* ✅ 이미지 태그로 변경 */}
+      <img
+        className="movie-image"
+        src={imgSrc}
+        alt={movie.title}
+        onError={handleImageError}
+      />
       {variant === "ranked" && <div className="rank-layer">{rank}</div>}
       <div className="overlay">
         <Stack>
@@ -83,20 +97,24 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
           <Box display="flex" alignItems="center" gap={0.5}>
             <WhatshotIcon sx={{ fontSize: 16, color: "orangered" }} />
             <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              {movie.popularity}
+              {typeof movie.popularity === "number"
+                ? movie.popularity.toFixed(1)
+                : "No data"}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" gap={1.5}>
             <Box display="flex" alignItems="center" gap={0.5}>
               <StarIcon sx={{ fontSize: 16, color: "gold" }} />
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                {Math.floor(movie.vote_average * 10) / 10}
+                {typeof movie.vote_average === "number"
+                  ? Math.floor(movie.vote_average * 10) / 10
+                  : "No data"}
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" gap={0.5}>
               <ForumIcon sx={{ fontSize: 16, color: "gray" }} />
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                {movie.vote_count}
+                {typeof movie.vote_count === "number" ? movie.vote_count : 0}
               </Typography>
             </Box>
           </Box>

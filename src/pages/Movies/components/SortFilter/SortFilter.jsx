@@ -50,8 +50,12 @@ const SortFilter = ({ sortOption, handleSortChange }) => {
             },
           }}
         >
-          <MenuItem value="popularity.desc">Most Popular</MenuItem>
-          <MenuItem value="popularity.asc">Least Popular</MenuItem>
+          <MenuItem value="popularity.desc">🔥 Most Popular</MenuItem>
+          <MenuItem value="popularity.asc">🧊 Least Popular</MenuItem>
+          <MenuItem value="vote_average.desc">⭐ Highest Rated</MenuItem>
+          <MenuItem value="vote_average.asc">🌑 Lowest Rated</MenuItem>
+          <MenuItem value="vote_count.desc">👥 Most Voted</MenuItem>
+          <MenuItem value="vote_count.asc">🧍 Least Voted</MenuItem>
         </Select>
       </FormControl>
     </Box>

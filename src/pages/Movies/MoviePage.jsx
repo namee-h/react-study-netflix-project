@@ -59,13 +59,22 @@ const MoviePage = () => {
   const sortedResults = [...(data?.results || [])]
     .filter(Boolean)
     .sort((a, b) => {
-      if (sortOption === "popularity.desc") return b.popularity - a.popularity;
-      if (sortOption === "popularity.asc") return a.popularity - b.popularity;
-      if (sortOption === "vote_average.desc")
-        return b.vote_average - a.vote_average;
-      if (sortOption === "vote_average.asc")
-        return a.vote_average - b.vote_average;
-      return 0;
+      switch (sortOption) {
+        case "popularity.desc":
+          return b.popularity - a.popularity;
+        case "popularity.asc":
+          return a.popularity - b.popularity;
+        case "vote_average.desc":
+          return b.vote_average - a.vote_average;
+        case "vote_average.asc":
+          return a.vote_average - b.vote_average;
+        case "vote_count.desc":
+          return b.vote_count - a.vote_count;
+        case "vote_count.asc":
+          return a.vote_count - b.vote_count;
+        default:
+          return 0;
+      }
     });
 
   const filteredResults = selectedGenres.length

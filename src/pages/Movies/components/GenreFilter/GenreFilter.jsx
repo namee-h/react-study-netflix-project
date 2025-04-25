@@ -47,7 +47,7 @@ const GenreFilter = ({ selectedGenres, setSelectedGenres }) => {
           )}
         </Typography>
       </AccordionSummary>
-      <Box mb={1} sx={{ position: "absolute", right: "50px", top: "10px" }}>
+      <Box mb={1} sx={{ position: "absolute", right: "46px", top: "10px" }}>
         <Tooltip title="Clear selected genres">
           <IconButton
             onClick={clearGenres}

@@ -51,7 +51,7 @@ Vercel - 정적 배포 플랫폼
 ├── src
 │   ├── assets              # 이미지 등 에셋 파일
 │   ├── common              # 공통 UI 컴포넌트
-│   ├── constants           # 장르 아이디 등 상수
+│   ├── constants           # react-multi-carousel responsive
 │   ├── hooks               # 커스텀 훅 (useSearchMovie, useTrailer 등)
 │   ├── layout              # AppLayout, Footer 등 전역 UI
 │   ├── pages               # MoviePage, DetailPage 등 라우트 페이지

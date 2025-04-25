@@ -41,27 +41,7 @@ TMDB API - 영화/장르/예고편 등 데이터 활용
 
 Vercel - 정적 배포 플랫폼
 
-📂 폴더 구조
-
-├── public
-│ ├── favicon.ico
-│ ├── placeholder.png
-│ └── placeholder-banner.png
-├── src
-│ ├── assets # 이미지 등 에셋 파일
-│ ├── common # 공통 UI 컴포넌트
-│ ├── constants # 장르 아이디 등 상수
-│ ├── hooks # 커스텀 훅 (useSearchMovie, useTrailer 등)
-│ ├── layout # AppLayout, Footer 등 전역 UI
-│ ├── pages # MoviePage, DetailPage 등 라우트 페이지
-│ ├── store # Zustand 전역 상태 관리
-│ ├── utils # Axios 설정 등 유틸 함수
-│ ├── App.jsx # 메인 컴포넌트
-│ ├── main.jsx # 앱 진입점
-│ ├── App.css / index.css
-├── .env # TMDB API 키 보관
-├── vite.config.js # Vite 설정
-├── README.md
+<pre> ## 📂 폴더 구조 <code> ``` ├── public │ ├── favicon.ico │ ├── placeholder.png │ └── placeholder-banner.png ├── src │ ├── assets # 이미지 등 에셋 파일 │ ├── common # 공통 UI 컴포넌트 │ ├── constants # 장르 아이디 등 상수 │ ├── hooks # 커스텀 훅 (useSearchMovie, useTrailer 등) │ ├── layout # AppLayout, Footer 등 전역 UI │ ├── pages # MoviePage, DetailPage 등 라우트 페이지 │ ├── store # Zustand 전역 상태 관리 │ ├── utils # Axios 설정 등 유틸 함수 │ ├── App.jsx # 메인 컴포넌트 │ ├── main.jsx # 앱 진입점 │ ├── App.css / index.css ├── .env # TMDB API 키 보관 ├── vite.config.js # Vite 설정 ├── README.md ``` </code> </pre>
 
 ⚡ 프로젝트 진행 중 어려웠던 점 & 해결 방법
 

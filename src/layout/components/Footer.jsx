@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
 
 const Footer = () => {
   return (
@@ -7,25 +7,26 @@ const Footer = () => {
       component="footer"
       sx={{
         backgroundColor: "#111",
-        color: "#ccc",
+        padding: "2rem 1rem",
+        color: "#999",
         textAlign: "center",
-        padding: "1.5rem",
-        marginTop: "auto",
       }}
     >
-      <Typography variant="body2" gutterBottom>
-        © {new Date().getFullYear()} MyReactNetflix-demoSite. All rights
-        reserved.
-      </Typography>
       <Typography variant="body2">
-        Built with ❤️ by{" namee-h Devs "}
-        <Link
-          href="mailto:contact@mymoviesite.com"
+        © {new Date().getFullYear()} Netflix Demo Site · Built with ❤️ by Sarah
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        This project was created as part of the React Study (3rd term) by{" "}
+        <MuiLink
+          href="https://codingnoona.thinkific.com/courses/3"
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="none"
           color="inherit"
-          underline="hover"
+          sx={{ fontWeight: "bold" }}
         >
-          https://github.com/namee-h
-        </Link>
+          코딩알려주는누나 ❣️
+        </MuiLink>
       </Typography>
     </Box>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MoviePage.style.css";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import LoadingBackdrop from "../../common/components/LoadingBackDrop";
 import { Alert, Box, Container, Grid } from "@mui/material";
 import MovieCard from "../../common/components/MovieCard/MovieCard";

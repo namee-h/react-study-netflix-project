@@ -61,6 +61,7 @@ const MovieCard = ({ movie, rank, variant = "default" }) => {
         position: "relative",
         borderRadius: "8px",
         cursor: "pointer",
+        border: "2px solid #fff",
       }}
     >
       {/* ✅ 이미지 태그로 변경

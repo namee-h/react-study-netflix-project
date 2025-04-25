@@ -2,12 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import { Box, Grid, Typography, Chip, Divider, Stack } from "@mui/material";
 import GenreBadge from "../../../common/components/MovieCard/Chip";
-import {
-  AccessTime,
-  CalendarToday,
-  MonetizationOn,
-  EmojiEvents,
-} from "@mui/icons-material";
+import { AccessTime, MonetizationOn, EmojiEvents } from "@mui/icons-material";
 import Age18PlusIcon from "../../../common/components/MovieCard/Icons/Age18PlusIcon";
 import AllAgeIcon from "../../../common/components/MovieCard/Icons/AllAgeIcon";
 
@@ -22,6 +17,10 @@ const MovieDetailBox = ({ movie }) => {
             <img
               src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
               alt={movie?.title}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/placeholder.png";
+              }}
               style={{ width: "100%", borderRadius: "12px" }}
             />
           </Grid>

@@ -19,13 +19,13 @@ const Banner = ({ id = null }) => {
     <Alert severity="error">{error.message}</Alert>;
   }
   const movie = id ? data : data?.results?.[0];
+  const posterPath = movie?.poster_path
+    ? `https://media.themoviedb.org/t/p/w533_and_h300_bestv2${movie.poster_path}`
+    : "/placeholder-banner.jpg";
   return (
     <div
       style={{
-        backgroundImage:
-          "url(" +
-          `https://media.themoviedb.org/t/p/w533_and_h300_bestv2${movie?.poster_path}` +
-          ")",
+        backgroundImage: "url(" + `${posterPath}` + ")",
       }}
       className="banner"
     >

@@ -10,7 +10,6 @@ const RelatedMoviesSlide = ({ movies }) => {
         title="Related Movies"
         movies={movies}
         responsive={responsive}
-        type="list"
       />
     </Box>
   );

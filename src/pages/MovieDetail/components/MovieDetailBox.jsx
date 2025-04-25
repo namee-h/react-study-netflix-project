@@ -15,6 +15,7 @@ const MovieDetailBox = ({ movie }) => {
           {/* Poster */}
           <Grid size={{ xs: 12, md: 5 }}>
             <img
+              className="detail-image"
               src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
               alt={movie?.title}
               onError={(e) => {
@@ -48,24 +49,32 @@ const MovieDetailBox = ({ movie }) => {
               </Typography>
             )}
 
-            <Stack direction="row" spacing={2} alignItems="center" mb={2}>
-              <EmojiEvents sx={{ color: "gold" }} />
-              <Typography>
-                {movie.vote_average} / {movie.vote_count.toLocaleString()} votes
+            <Grid container spacing={2} alignItems="center" mb={2}>
+              <Grid size={{ xs: 12, md: 3 }}>
+                <EmojiEvents sx={{ color: "gold" }} />
+                <Typography>
+                  {movie.vote_average} / {movie.vote_count.toLocaleString()}
+                  votes
+                </Typography>
+              </Grid>
+              <Grid size={{ xs: 12, md: 3 }}>
+                <MonetizationOn sx={{ color: "orange" }} />
+                <Typography>${movie.revenue.toLocaleString()}</Typography>
+              </Grid>
+              <Grid size={{ xs: 12, md: 3 }}>
+                <AccessTime sx={{ color: "white" }} />
+                <Typography>{movie.runtime}분</Typography>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Typography variant="body1" paragraph>
+                {movie.overview}
               </Typography>
-              <MonetizationOn sx={{ color: "orange" }} />
-              <Typography>${movie.revenue.toLocaleString()}</Typography>
-              <AccessTime sx={{ color: "white" }} />
-              <Typography>{movie.runtime}분</Typography>
-            </Stack>
-
-            <Typography variant="body1" paragraph>
-              {movie.overview}
-            </Typography>
+            </Grid>
 
             <Divider sx={{ my: 2, backgroundColor: "#444" }} />
 
-            <Stack spacing={1}>
+            <Grid container direction="column" spacing={1}>
               <Typography>
                 <strong>Budget:</strong> ${movie.budget.toLocaleString()}
               </Typography>
@@ -88,7 +97,7 @@ const MovieDetailBox = ({ movie }) => {
                   </a>
                 </Typography>
               )}
-            </Stack>
+            </Grid>
           </Grid>
         </Grid>
       </Container>

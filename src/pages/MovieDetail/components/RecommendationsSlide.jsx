@@ -9,7 +9,6 @@ const RecommendationsSlide = ({ movies }) => {
         title="Recommendations Movies"
         movies={movies}
         responsive={responsive}
-        type="list"
       />
     </div>
   );

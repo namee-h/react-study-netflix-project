@@ -121,8 +121,8 @@
     margin-top: 20px;
   }
   .genre-badge {
-    font-weight: normal !important;
-    padding: 0px !important;
+    font-weight: normal;
+    padding: 0px;
   }
   .movie-card.list {
     width: 220px;

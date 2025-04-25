@@ -7,7 +7,7 @@ import Age18PlusIcon from "../../../common/components/MovieCard/Icons/Age18PlusI
 import AllAgeIcon from "../../../common/components/MovieCard/Icons/AllAgeIcon";
 
 const MovieDetailBox = ({ movie }) => {
-  console.log("detail", movie);
+  // console.log("detail", movie);
   return (
     <Box sx={{ backgroundColor: "black", color: "white", py: 4 }}>
       <Container maxWidth="lg">

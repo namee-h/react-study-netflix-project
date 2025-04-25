@@ -19,14 +19,6 @@ import ScrollTopButton from "../../common/components/Buttons/ScrollTopButton";
 import GoBackButton from "../../common/components/Buttons/GoBackButton";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
-// 경로 2가지
-// nav바에서 클릭해서 온 경우 => popularMovie 보여주기
-// keyword를 입력해서 온 경우  => keyword 와 관련된 영화들을 보여줌
-
-// 페이지네이션 설치
-// 페이지 state 만들기
-// 페이지네이션 클릭시 페이지바꿔주기
-// 페이지값이 바뀔때마다 useSearchMovie에 페이지까지 넣어서 fetch
 const MoviePage = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [query, setQuery] = useSearchParams();
@@ -47,12 +39,8 @@ const MoviePage = () => {
     genres: selectedGenres,
   });
 
-  if (isLoading) {
-    return <LoadingBackdrop open={true} />;
-  }
-  if (isError) {
-    return <Alert severity="error">{error.message}</Alert>;
-  }
+  if (isLoading) return <LoadingBackdrop open={true} />;
+  if (isError) return <Alert severity="error">{error.message}</Alert>;
 
   const handleSortChange = (e) => {
     const sortSelected = e.target.value;
@@ -63,33 +51,26 @@ const MoviePage = () => {
     params.set("sort", sortSelected);
     setSearchParams(params);
   };
-  const handlePageClick = ({ selected }) => {
-    // console.log("Clicked page:", selected + 1);
-    setPage(selected + 1);
-    // setCurrentPageForPaginate(selected);
-  };
-  // console.log("moviepage", data);
 
-  // 😭 검색값있을때 정렬
-  // const sortedResults = [...data.results].sort((a, b) => {
-  //   if (sortOption === "popularity.desc") return b.popularity - a.popularity;
-  //   if (sortOption === "popularity.asc") return a.popularity - b.popularity;
-  //   return 0;
-  // });
-  const sortedResults = keyword
-    ? [...data.results].sort((a, b) => {
-        if (sortOption === "popularity.desc")
-          return b.popularity - a.popularity;
-        if (sortOption === "popularity.asc") return a.popularity - b.popularity;
-        if (sortOption === "vote_average.desc")
-          return b.vote_average - a.vote_average;
-        return 0;
-      })
-    : data.results;
+  const handlePageClick = ({ selected }) => {
+    setPage(selected + 1);
+  };
+
+  const sortedResults = [...(data?.results || [])]
+    .filter(Boolean)
+    .sort((a, b) => {
+      if (sortOption === "popularity.desc") return b.popularity - a.popularity;
+      if (sortOption === "popularity.asc") return a.popularity - b.popularity;
+      if (sortOption === "vote_average.desc")
+        return b.vote_average - a.vote_average;
+      if (sortOption === "vote_average.asc")
+        return a.vote_average - b.vote_average;
+      return 0;
+    });
 
   const filteredResults = selectedGenres.length
     ? sortedResults.filter((movie) =>
-        movie.genre_ids.some((id) => selectedGenres.includes(id))
+        movie.genre_ids?.some((id) => selectedGenres.includes(id))
       )
     : sortedResults;
 
@@ -103,14 +84,15 @@ const MoviePage = () => {
 
   const pagedResults = selectedGenres.length
     ? filteredResults.slice((page - 1) * itemsPerPage, page * itemsPerPage)
-    : data.results;
+    : sortedResults;
 
   const clearSearch = () => {
     const params = new URLSearchParams(searchParams);
-    params.delete("q"); // 검색어 쿼리 삭제
-    params.set("page", 1); // 페이지도 1로 초기화 (선택)
+    params.delete("q");
+    params.set("page", 1);
     setSearchParams(params);
   };
+
   return (
     <Container sx={{ margin: "1em auto", padding: "0" }}>
       {sortedResults.length === 0 ? (
@@ -156,9 +138,7 @@ const MoviePage = () => {
                       sx={{
                         backgroundColor: "#111",
                         color: "white",
-                        "&:hover": {
-                          backgroundColor: "#b30000",
-                        },
+                        "&:hover": { backgroundColor: "#b30000" },
                         borderRadius: "8px",
                       }}
                     >
@@ -216,16 +196,13 @@ const MoviePage = () => {
                 }}
               >
                 <ReactPaginate
-                  pageCount={safeTotalPages} //전체페이지 몇개인지
-                  pageRangeDisplayed={2} //중앙페이지수
+                  pageCount={safeTotalPages}
+                  pageRangeDisplayed={2}
                   marginPagesDisplayed={1}
                   onPageChange={handlePageClick}
-                  // onClick={(e) => {
-                  //   console.log("ReactClicked page:", e.selected);
-                  // }}
-                  forcePage={page - 1} // react-paginate 는 page를 0부터 카운터함
-                  previousLabel="<" //previous
-                  nextLabel=">" //next
+                  forcePage={page - 1}
+                  previousLabel="<"
+                  nextLabel=">"
                   breakLabel="..."
                   breakClassName="page-item"
                   breakLinkClassName="page-link"
